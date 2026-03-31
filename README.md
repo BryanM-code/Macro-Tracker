@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Macro Tracker
 
 Macro Tracker is a simple web app mainly made from my own personal meals as references for data. This will help me and soon other users to track their macros
