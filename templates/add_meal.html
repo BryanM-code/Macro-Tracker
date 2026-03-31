@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Add Meal | Macro Tracker{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <h1>Add a Meal</h1>
+        <p>Describe what you ate and the app will estimate calories and macros.</p>
+    </div>
+</section>
+
+<section class="card form-card">
+    <form method="post" class="stack-form">
+        <label for="meal_type">Meal Type</label>
+        <select id="meal_type" name="meal_type">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+        </select>
+
+        <label for="description">Meal Description</label>
+        <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Example: 2 eggs, 2 slices wheat bread, 1 slice pepper jack cheese"
+            required
+        >{{ request.form.description or '' }}</textarea>
+
+        <button class="button" type="submit">Calculate and Save Meal</button>
+    </form>
+</section>
+
+{% if result %}
+<section class="card">
+    <h2>Saved Meal</h2>
+    <p><strong>Meal type:</strong> {{ result.meal_type|title }}</p>
+    <p><strong>Original description:</strong> {{ result.description }}</p>
+    <p><strong>Saved as meal #{{ result.meal_id }}</strong></p>
+</section>
+
+<section class="card">
+    <h2>Parsed Foods</h2>
+    <div class="results-table">
+        <div class="results-row results-head">
+            <span>Input</span>
+            <span>Match</span>
+            <span>Quantity</span>
+            <span>Calories</span>
+            <span>Protein</span>
+            <span>Carbs</span>
+            <span>Fat</span>
+        </div>
+        {% for item in result["items"] %}
+        <div class="results-row">
+            <span>{{ item.raw_text }}</span>
+            <span>
+                {{ item.food_name }}
+                {% if not item.matched %}
+                <small>Not found in food list</small>
+                {% endif %}
+            </span>
+            <span>{{ item.quantity }} {{ item.serving_unit }}</span>
+            <span>{{ item.calories }}</span>
+            <span>{{ item.protein }} g</span>
+            <span>{{ item.carbs }} g</span>
+            <span>{{ item.fat }} g</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="card">
+    <h2>Meal Totals</h2>
+    <div class="macro-list">
+        <p><span>Calories</span><strong>{{ result.totals.calories }}</strong></p>
+        <p><span>Protein</span><strong>{{ result.totals.protein }} g</strong></p>
+        <p><span>Carbs</span><strong>{{ result.totals.carbs }} g</strong></p>
+        <p><span>Fat</span><strong>{{ result.totals.fat }} g</strong></p>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

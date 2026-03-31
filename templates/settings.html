@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Settings | Macro Tracker{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <h1>Daily Goal Settings</h1>
+        <p>Update your target calories and macros for the day.</p>
+    </div>
+</section>
+
+<section class="card form-card">
+    <form method="post" class="stack-form">
+        <label for="calorie_goal">Calories</label>
+        <input id="calorie_goal" name="calorie_goal" type="number" min="0" step="1" value="{{ goals.calorie_goal }}" required>
+
+        <label for="protein_goal">Protein (g)</label>
+        <input id="protein_goal" name="protein_goal" type="number" min="0" step="1" value="{{ goals.protein_goal }}" required>
+
+        <label for="carb_goal">Carbs (g)</label>
+        <input id="carb_goal" name="carb_goal" type="number" min="0" step="1" value="{{ goals.carb_goal }}" required>
+
+        <label for="fat_goal">Fat (g)</label>
+        <input id="fat_goal" name="fat_goal" type="number" min="0" step="1" value="{{ goals.fat_goal }}" required>
+
+        <button class="button" type="submit">Save Goals</button>
+    </form>
+</section>
+{% endblock %}

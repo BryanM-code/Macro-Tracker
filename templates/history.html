@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}History | Macro Tracker{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <h1>Meal History</h1>
+        <p>Review past meal entries and totals by day.</p>
+    </div>
+</section>
+
+<section class="card form-card">
+    <form method="get" class="inline-form">
+        <label for="date">Choose Date</label>
+        <select id="date" name="date">
+            {% if selected_date not in available_dates %}
+            <option value="{{ selected_date }}">{{ selected_date }}</option>
+            {% endif %}
+            {% for meal_date in available_dates %}
+            <option value="{{ meal_date }}" {% if meal_date == selected_date %}selected{% endif %}>{{ meal_date }}</option>
+            {% endfor %}
+        </select>
+        <button class="button" type="submit">View</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Daily Totals for {{ selected_date }}</h2>
+    <div class="macro-list">
+        <p><span>Calories</span><strong>{{ totals.calories }}</strong></p>
+        <p><span>Protein</span><strong>{{ totals.protein }} g</strong></p>
+        <p><span>Carbs</span><strong>{{ totals.carbs }} g</strong></p>
+        <p><span>Fat</span><strong>{{ totals.fat }} g</strong></p>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Meals</h2>
+    {% if meals %}
+    <div class="history-list">
+        {% for meal in meals %}
+        <article class="history-item">
+            <div class="history-title">
+                <h3>{{ meal.meal_type|title }}</h3>
+                <span>{{ meal.date }}</span>
+            </div>
+            <p>{{ meal.description }}</p>
+            <div class="history-macros">
+                <span>{{ meal.calories }} cal</span>
+                <span>{{ meal.protein }} g protein</span>
+                <span>{{ meal.carbs }} g carbs</span>
+                <span>{{ meal.fat }} g fat</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No meals logged for this date yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

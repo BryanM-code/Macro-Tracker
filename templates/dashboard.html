@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Macro Tracker{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <h1>Today's Dashboard</h1>
+        <p>Track your totals for {{ today }} and compare them with your goals.</p>
+    </div>
+    <a class="button" href="{{ url_for('add_meal') }}">Log a Meal</a>
+</section>
+
+<section class="card-grid">
+    <article class="card">
+        <h2>Consumed</h2>
+        <div class="macro-list">
+            <p><span>Calories</span><strong>{{ totals.calories }}</strong></p>
+            <p><span>Protein</span><strong>{{ totals.protein }} g</strong></p>
+            <p><span>Carbs</span><strong>{{ totals.carbs }} g</strong></p>
+            <p><span>Fat</span><strong>{{ totals.fat }} g</strong></p>
+        </div>
+    </article>
+
+    <article class="card">
+        <h2>Goals</h2>
+        <div class="macro-list">
+            <p><span>Calories</span><strong>{{ goals.calorie_goal }}</strong></p>
+            <p><span>Protein</span><strong>{{ goals.protein_goal }} g</strong></p>
+            <p><span>Carbs</span><strong>{{ goals.carb_goal }} g</strong></p>
+            <p><span>Fat</span><strong>{{ goals.fat_goal }} g</strong></p>
+        </div>
+    </article>
+
+    <article class="card">
+        <h2>Remaining</h2>
+        <div class="macro-list">
+            <p><span>Calories</span><strong>{{ remaining.calories }}</strong></p>
+            <p><span>Protein</span><strong>{{ remaining.protein }} g</strong></p>
+            <p><span>Carbs</span><strong>{{ remaining.carbs }} g</strong></p>
+            <p><span>Fat</span><strong>{{ remaining.fat }} g</strong></p>
+        </div>
+    </article>
+</section>
+{% endblock %}
