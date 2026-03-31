@@ -39,7 +39,6 @@ Open `http://127.0.0.1:5000` in your browser.
 
 - If a food is not recognized, the app keeps the raw item text so the user can still see what was attempted. It will not getting added to sum.
 
-=======
+
 # Macro-Tracker
 Help people maintain their daily fitness and health goals by keeping an accurate track of their personal macros. 
->>>>>>> 847d231d80293c47e19de0e35a5c8582cca281c1
